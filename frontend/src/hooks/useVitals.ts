@@ -10,7 +10,7 @@ export interface VitalEntry {
   type: VitalType;
   value: number; // primary value (weight Kg, systolic BP, HR bpm, sleep hours, SpO2 %)
   secondaryValue?: number; // secondary value (e.g., diastolic for BP)
-  source: "manual" | "google_fit" | "fitbit";
+  source: "manual" | "google_fit" | "apple_health";
   recordedAt: string;
 }
 
@@ -53,7 +53,7 @@ const generateMockVitals = (): VitalEntry[] => {
       userId,
       type: "hr",
       value: Math.round(68 + Math.sin(i) * 5),
-      source: "fitbit",
+      source: "apple_health",
       recordedAt: dayString,
     });
 
@@ -63,7 +63,7 @@ const generateMockVitals = (): VitalEntry[] => {
       userId,
       type: "sleep",
       value: Number((7.2 + Math.cos(i) * 0.9).toFixed(1)),
-      source: "fitbit",
+      source: "apple_health",
       recordedAt: dayString,
     });
 

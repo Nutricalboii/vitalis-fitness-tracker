@@ -953,39 +953,39 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Fitbit Integration */}
+                    {/* Apple Health Integration */}
                     <div className="rounded-2xl border border-slate-800 bg-[#0a0f1d] p-6 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between">
-                          <h4 className="text-base font-bold text-white">Fitbit Web API</h4>
+                          <h4 className="text-base font-bold text-white">Apple HealthKit</h4>
                           <span className={`rounded px-2.5 py-0.5 text-xs font-semibold ${
-                            connectedProviders.includes("fitbit") ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-slate-800 text-slate-400"
+                            connectedProviders.includes("apple_health") ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-slate-800 text-slate-400"
                           }`}>
-                            {connectedProviders.includes("fitbit") ? "Connected" : "Disconnected"}
+                            {connectedProviders.includes("apple_health") ? "Connected" : "Disconnected"}
                           </span>
                         </div>
                         <p className="mt-3 text-xs text-slate-400">
-                          Allows secure syncing of Fitbit activity profiles, intraday heart rate data logs, and detailed sleep cycles.
+                          Secure sync with Apple HealthKit data database. Import workout volumes, resting heart rate history, and sleep patterns directly.
                         </p>
-                        {lastSynced.fitbit && (
+                        {lastSynced.apple_health && (
                           <p className="mt-2 text-[10px] text-slate-500">
-                            Last synced: {new Date(lastSynced.fitbit).toLocaleString()}
+                            Last synced: {new Date(lastSynced.apple_health).toLocaleString()}
                           </p>
                         )}
                       </div>
 
                       <div className="mt-6 flex gap-2">
-                        {connectedProviders.includes("fitbit") ? (
+                        {connectedProviders.includes("apple_health") ? (
                           <>
                             <button
-                              onClick={() => syncNow("fitbit")}
-                              disabled={syncing.fitbit}
+                              onClick={() => syncNow("apple_health")}
+                              disabled={syncing.apple_health}
                               className="flex-1 rounded-xl bg-slate-800 hover:bg-slate-700 py-2.5 text-xs font-semibold text-white flex items-center justify-center gap-1"
                             >
-                              <RefreshCw className={`h-3 w-3 ${syncing.fitbit ? "animate-spin" : ""}`} /> Sync Now
+                              <RefreshCw className={`h-3 w-3 ${syncing.apple_health ? "animate-spin" : ""}`} /> Sync Now
                             </button>
                             <button
-                              onClick={() => disconnect("fitbit")}
+                              onClick={() => disconnect("apple_health")}
                               className="rounded-xl border border-rose-500/30 hover:bg-rose-500/10 px-4 py-2.5 text-xs font-semibold text-rose-400"
                             >
                               Disconnect
@@ -993,10 +993,10 @@ export default function Home() {
                           </>
                         ) : (
                           <button
-                            onClick={() => connect("fitbit")}
+                            onClick={() => connect("apple_health")}
                             className="w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 py-2.5 text-xs font-semibold text-white shadow-lg hover:from-indigo-600 hover:to-violet-700 transition"
                           >
-                            Connect Fitbit Account
+                            Connect Apple Health
                           </button>
                         )}
                       </div>

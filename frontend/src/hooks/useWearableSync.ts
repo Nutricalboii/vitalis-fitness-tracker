@@ -2,27 +2,27 @@
 
 import { useState, useEffect } from "react";
 import { GoogleFitAdapter } from "@/lib/wearables/google_fit";
-import { FitbitAdapter } from "@/lib/wearables/fitbit";
+import { AppleHealthAdapter } from "@/lib/wearables/apple_health";
 import { WearableAdapter, WearableMetricData } from "@/lib/wearables/types";
 import { useVitals } from "./useVitals";
 
-export type ProviderType = "google_fit" | "fitbit";
+export type ProviderType = "google_fit" | "apple_health";
 
 export function useWearableSync() {
   const { addVital } = useVitals();
   const [connectedProviders, setConnectedProviders] = useState<ProviderType[]>([]);
   const [syncing, setSyncing] = useState<Record<ProviderType, boolean>>({
     google_fit: false,
-    fitbit: false,
+    apple_health: false,
   });
   const [lastSynced, setLastSynced] = useState<Record<ProviderType, string | null>>({
     google_fit: null,
-    fitbit: null,
+    apple_health: null,
   });
 
   const adapters: Record<ProviderType, WearableAdapter> = {
     google_fit: new GoogleFitAdapter(),
-    fitbit: new FitbitAdapter(),
+    apple_health: new AppleHealthAdapter(),
   };
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export function useWearableSync() {
   };
 
   const syncNow = async (provider: ProviderType) => {
-    if (!connectedProviders.includes(provider) && provider !== "google_fit" && provider !== "fitbit") return;
+    if (!connectedProviders.includes(provider) && provider !== "google_fit" && provider !== "apple_health") return;
 
     setSyncing((prev) => ({ ...prev, [provider]: true }));
     try {
@@ -75,12 +75,10 @@ export function useWearableSync() {
       const nowStr = new Date().toISOString();
 
       // Push metrics to vitals store
-      if (data.steps !== undefined) {
-        // Steps is mapped to custom vitals value (e.g. using 'hr' or custom)
-        // Let's log Heart Rate and Sleep directly
+      if (data.heartRateAverage !== undefined) {
         await addVital({
           type: "hr",
-          value: data.heartRateAverage || 70,
+          value: data.heartRateAverage,
           source: provider,
           recordedAt: nowStr,
         });
