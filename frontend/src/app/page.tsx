@@ -291,8 +291,8 @@ export default function Home() {
                 <label className="text-xs font-semibold text-slate-400">Age (years)</label>
                 <input
                   type="number"
-                  value={onboardAge}
-                  onChange={(e) => setOnboardAge(parseInt(e.target.value))}
+                  value={isNaN(onboardAge) || !onboardAge ? "" : onboardAge}
+                  onChange={(e) => setOnboardAge(parseInt(e.target.value) || 0)}
                   className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white focus:outline-none"
                 />
               </div>
@@ -300,8 +300,8 @@ export default function Home() {
                 <label className="text-xs font-semibold text-slate-400">Height (cm)</label>
                 <input
                   type="number"
-                  value={onboardHeight}
-                  onChange={(e) => setOnboardHeight(parseInt(e.target.value))}
+                  value={isNaN(onboardHeight) || !onboardHeight ? "" : onboardHeight}
+                  onChange={(e) => setOnboardHeight(parseInt(e.target.value) || 0)}
                   className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white focus:outline-none"
                 />
               </div>
@@ -309,8 +309,8 @@ export default function Home() {
                 <label className="text-xs font-semibold text-slate-400">Weight (kg)</label>
                 <input
                   type="number"
-                  value={onboardWeight}
-                  onChange={(e) => setOnboardWeight(parseInt(e.target.value))}
+                  value={isNaN(onboardWeight) || !onboardWeight ? "" : onboardWeight}
+                  onChange={(e) => setOnboardWeight(parseInt(e.target.value) || 0)}
                   className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white focus:outline-none"
                 />
               </div>
@@ -347,20 +347,16 @@ export default function Home() {
       <header className="sticky top-0 z-40 border-b border-slate-800 bg-[#070b15]/80 backdrop-blur-md px-6 py-4">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/20">
-              <Activity className="h-5.5 w-5.5" />
-            </div>
             <div>
-              <h1 className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-indigo-100 to-indigo-300 bg-clip-text text-transparent">
+              <h1 className="font-bold text-xl tracking-tight text-white">
                 Vitalis
               </h1>
-              <p className="text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Health Core</p>
             </div>
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="hidden items-center gap-1.5 rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-400 border border-indigo-500/20 md:inline-flex">
-              <Sparkles className="h-3.5 w-3.5" /> Streak: {streak} Days
+            <span className="text-sm font-medium text-slate-300">
+              Streak: {streak} Days
             </span>
 
             <div className="flex items-center gap-2">
@@ -385,48 +381,43 @@ export default function Home() {
             <nav className="flex flex-row gap-1 rounded-2xl bg-slate-900/40 p-1.5 md:flex-col border border-slate-800/80">
               <button
                 onClick={() => setActiveTab("dashboard")}
-                className={`flex flex-1 items-center justify-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
+                className={`flex flex-1 items-center justify-center rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
                   activeTab === "dashboard" ? "bg-indigo-500 text-white shadow-md shadow-indigo-500/15" : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
                 }`}
               >
-                <Gauge className="h-4.5 w-4.5" />
-                <span className="hidden md:inline">Dashboard</span>
+                <span className="md:inline">Dashboard</span>
               </button>
               <button
                 onClick={() => setActiveTab("workouts")}
-                className={`flex flex-1 items-center justify-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
+                className={`flex flex-1 items-center justify-center rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
                   activeTab === "workouts" ? "bg-indigo-500 text-white shadow-md shadow-indigo-500/15" : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
                 }`}
               >
-                <Calendar className="h-4.5 w-4.5" />
-                <span className="hidden md:inline">Log Workouts</span>
+                <span className="md:inline">Log Workouts</span>
               </button>
               <button
                 onClick={() => setActiveTab("vitals")}
-                className={`flex flex-1 items-center justify-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
+                className={`flex flex-1 items-center justify-center rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
                   activeTab === "vitals" ? "bg-indigo-500 text-white shadow-md shadow-indigo-500/15" : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
                 }`}
               >
-                <Heart className="h-4.5 w-4.5" />
-                <span className="hidden md:inline">Vitals History</span>
+                <span className="md:inline">Vitals History</span>
               </button>
               <button
                 onClick={() => setActiveTab("wearables")}
-                className={`flex flex-1 items-center justify-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
+                className={`flex flex-1 items-center justify-center rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
                   activeTab === "wearables" ? "bg-indigo-500 text-white shadow-md shadow-indigo-500/15" : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
                 }`}
               >
-                <RefreshCw className="h-4.5 w-4.5" />
-                <span className="hidden md:inline">Wearable Sync</span>
+                <span className="md:inline">Wearable Sync</span>
               </button>
               <button
                 onClick={() => setActiveTab("settings")}
-                className={`flex flex-1 items-center justify-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
+                className={`flex flex-1 items-center justify-center rounded-xl px-4 py-3 text-sm font-medium transition duration-200 md:justify-start ${
                   activeTab === "settings" ? "bg-indigo-500 text-white shadow-md shadow-indigo-500/15" : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
                 }`}
               >
-                <Settings className="h-4.5 w-4.5" />
-                <span className="hidden md:inline">Settings</span>
+                <span className="md:inline">Settings</span>
               </button>
             </nav>
           </aside>
@@ -487,8 +478,7 @@ export default function Home() {
                 <div className="rounded-2xl border border-slate-800 bg-[#0e1626] p-6 shadow-sm">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <h3 className="text-lg font-bold text-white">Vitals & Health Metrics Analysis</h3>
-                      <p className="text-xs text-slate-400">Powered by useHealthMetric generic adapter</p>
+                      <h3 className="text-lg font-bold text-white">Vitals & Health Metrics</h3>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -684,13 +674,13 @@ export default function Home() {
                                     <span className="text-xs text-slate-300 font-bold">#{sIdx + 1}</span>
                                     <input
                                       type="number"
-                                      value={set.reps}
+                                      value={isNaN(set.reps) ? "" : set.reps}
                                       onChange={(e) => handleUpdateSet(ex.id, sIdx, parseInt(e.target.value) || 0, set.weightKg)}
                                       className="rounded bg-slate-800 text-white text-xs px-2 py-1 focus:outline-none"
                                     />
                                     <input
                                       type="number"
-                                      value={set.weightKg}
+                                      value={isNaN(set.weightKg) ? "" : set.weightKg}
                                       onChange={(e) => handleUpdateSet(ex.id, sIdx, set.reps, parseFloat(e.target.value) || 0)}
                                       className="rounded bg-slate-800 text-white text-xs px-2 py-1 focus:outline-none"
                                     />
@@ -709,7 +699,7 @@ export default function Home() {
                                   <label className="text-xs text-slate-400">Duration (sec)</label>
                                   <input
                                     type="number"
-                                    defaultValue={ex.durationSec || 1800}
+                                    value={ex.durationSec === undefined || isNaN(ex.durationSec) ? "" : ex.durationSec}
                                     onChange={(e) => {
                                       const nextExs = draft.exercises.map((x) =>
                                         x.id === ex.id ? { ...x, durationSec: parseInt(e.target.value) || 0 } : x
@@ -724,7 +714,7 @@ export default function Home() {
                                   <input
                                     type="number"
                                     step="0.1"
-                                    defaultValue={ex.distanceKm || 5}
+                                    value={ex.distanceKm === undefined || isNaN(ex.distanceKm) ? "" : ex.distanceKm}
                                     onChange={(e) => {
                                       const nextExs = draft.exercises.map((x) =>
                                         x.id === ex.id ? { ...x, distanceKm: parseFloat(e.target.value) || 0 } : x
