@@ -871,7 +871,7 @@ export default function Home() {
                 <div className="lg:col-span-2 rounded-2xl border border-slate-800 bg-[#0e1626] p-6 shadow-sm">
                   <h3 className="text-lg font-bold text-white mb-4">Vitals Logs History</h3>
                   <div className="max-h-[400px] overflow-y-auto space-y-3 pr-2">
-                    {useVitals().vitals.map((v) => (
+                    {vitals.map((v) => (
                       <div key={v.id} className="flex items-center justify-between rounded-xl bg-slate-900/60 p-4 border border-slate-800">
                         <div>
                           <div className="flex items-center gap-2">
